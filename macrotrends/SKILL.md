@@ -1,6 +1,6 @@
 ---
 name: macrotrends
-description: Access and retrieve company financial data from macrotrends.net. Use when Claude needs to fetch financial statements such as income statements, cash flow statements, and balance sheets for publicly traded companies. Supports queries like "Get Apple's financial statements" or "Fetch the cash flow statement for TSLA".
+description: Access and retrieve company financial data from macrotrends.net. Use when Claude needs to fetch financial statements such as income statements, cash flow statements, balance sheets, and free cash flow for publicly traded companies. Supports queries like "Get Apple's financial statements" or "Fetch the cash flow statement for TSLA" or "Get AAPL's free cash flow".
 ---
 
 # Macrotrends
@@ -16,6 +16,7 @@ Use agent-browser to access macrotrends.net and retrieve company financial data 
 | Income Statement | `https://www.macrotrends.net/stocks/charts/{TICKER}/{company-name}/financial-statements` | https://www.macrotrends.net/stocks/charts/AAPL/apple/financial-statements |
 | Cash Flow Statement | `https://www.macrotrends.net/stocks/charts/{TICKER}/{company-name}/cash-flow-statement` | https://www.macrotrends.net/stocks/charts/AAPL/apple/cash-flow-statement |
 | Balance Sheet | `https://www.macrotrends.net/stocks/charts/{TICKER}/{company-name}/balance-sheet` | https://www.macrotrends.net/stocks/charts/AAPL/apple/balance-sheet |
+| Free Cash Flow | `https://www.macrotrends.net/stocks/charts/{TICKER}/{company-name}/free-cash-flow` | https://www.macrotrends.net/stocks/charts/AAPL/apple/free-cash-flow |
 
 ## Workflow
 
