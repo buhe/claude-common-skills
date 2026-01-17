@@ -21,3 +21,6 @@
 
 - A working shell (macOS, Linux, or Windows WSL) with network access.
 
+## invest-report
+
+![image-20260117201841451](https://raw.githubusercontent.com/buhe/pic/main/uPic/image-20260117201841451.png)
