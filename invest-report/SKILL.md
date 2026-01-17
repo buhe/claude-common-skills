@@ -29,87 +29,99 @@ Generate comprehensive investment research reports from a company's annual repor
 4. **Cross-validate data** - Compare data from reference materials with stockanalysis skill data
 5. **Generate and save report** - Create markdown report content with 8 chapters, then use Write tool to save as `{ticker}_investment_report.md` in the current working directory
 
+## Chart Generation
+
+When financial data would be more intuitive with visual representation, use the nano-banana-pro skill to generate charts:
+- Use 1K resolution for all generated charts
+- Call nano-banana-pro skill when visualizations would enhance understanding of:
+  - Revenue trends
+  - Profit growth patterns
+  - Capital allocation history
+  - Cash flow analysis
+- Include generated chart images in the markdown report
+
 ## Report Structure
 
 ### Chapter 1: Business Model
 
 Analyze and describe company's core business model based on annual report.
 
-### Chapter 2: Business Segments
+### Chapter 2: Business Segments and Revenue Breakdown
 
-List all business segments with their revenue percentages.
+List all business segments with their revenue percentages. Identify what business segments the company has and their revenue contribution to total revenue.
 
 ### Chapter 3: Sources of Profit
 
-Identify and explain main sources of profit.
+Identify and explain main sources of profit and how the company generates its earnings.
 
 ### Chapter 4: Ecosystem
 
-Describe company's ecosystem, partnerships, and competitive positioning.
+Describe company's ecosystem, partnerships, competitive positioning, and how different parts of the business interact.
 
 ### Chapter 5: Capital Allocation
 
-Capital allocation consists of three aspects: dividends, buybacks, investments
+Capital allocation consists of three main aspects: dividends, share repurchases (buybacks), and investments.
 
 #### Dividends
-- Recent year dividend yield = annual total dividend / current stock price
-- Recent year payout ratio = annual total dividend / net income
+- Calculate recent year dividend yield from financial statements: Annual total dividend / Current stock price
+- Calculate recent year payout ratio: Annual total dividend / Net income
 
-#### Buybacks
-- Recent year buyback yield = buyback amount / market cap
-- Compare with 5 years ago: did stock compensation versus buybacks cause share count to increase or decrease?
+#### Share Repurchases (Buybacks)
+- Calculate recent year buyback yield: Share repurchase amount / Market cap
+- Compare with 5 years ago: Determine whether stock-based compensation versus share repurchases caused the share count to increase or decrease over the past 5 years.
 
 #### Important Investments
-Table of major investments in last 10 years:
+Create a table of major investments/acquisitions in the last 10 years:
 
-| Year | Investment | Amount | Purpose |
+| Year | Investment/Acquisition | Amount | Purpose/Description |
 
 ### Chapter 6: Profit Stability
 
-Analyze profit stability and explain why the company can maintain stable profits based on annual report data.
+Analyze profit stability and explain why the company can maintain stable profits based on annual report data and historical trends.
 
-### Chapter 7: Balance Sheet
+### Chapter 7: Balance Sheet and Debt Analysis
 
 #### Debt Analysis
-- Analyze debt structure
-- Explain how the company would repay debt if it cannot obtain financing (using operating cash flow, asset sales, etc.)
+- Analyze debt structure and composition
+- Explain how the company would repay debt if it cannot obtain financing (considering operating cash flow, asset sales, cash reserves, etc.)
+- Assess the company's ability to service debt obligations
 
 ### Chapter 8: Valuation
 
 #### Historical Financial Data Table (Last 10 years, most recent year at top)
 
-Get data from reference materials or use stockanalysis skill:
+Get data from reference materials (markdown files) or use stockanalysis skill. Cross-validate with stockanalysis skill which has last 5 years of financial data:
 
-| Year | Revenue | Net Income | Operating Cash Flow | Capex | Free Cash Flow | Revenue Growth | Net Income Growth | FCF Growth |
+| Year | Revenue | Net Income | Operating Cash Flow | Capex | Free Cash Flow | Revenue Growth % | Net Income Growth % | FCF Growth % |
 
 #### Future 10-Year Free Cash Flow Growth Estimate
 
-Based on historical data and company analysis, estimate the possible free cash flow growth rate for the next 10 years and justify.
+Based on historical data and company analysis, estimate the possible free cash flow growth rate for the next 10 years and justify the assumption.
 
 #### DCF Valuation
 
 Use discount rate of 10%. Calculate fair value using the formula:
-**V = c * (1 + g) / (10% - g)**
+**V = c × (1 + g) / (10% - g)**
 
 Where:
-- V = fair value per share
-- c = current year free cash flow per share
-- g = growth rate
-- r = discount rate = 10%
+- V = Fair value per share
+- c = Current year free cash flow per share
+- g = Growth rate
+- r = Discount rate = 10%
 
 Calculate for 6 scenarios (use only one growth rate for the entire period, no separate perpetual growth rate):
-- -5% growth rate
-- 0% growth rate
-- 5% growth rate
-- 7% growth rate
-- 9% growth rate
-- Your estimated growth rate
+1. -5% growth rate
+2. 0% growth rate
+3. 5% growth rate
+4. 7% growth rate
+5. 9% growth rate
+6. Your estimated growth rate (from above analysis)
 
 For each scenario, show:
 - Assumptions (c = FCF per share, g = growth rate, r = 10%)
-- Calculation: V = c * (1 + g) / (10% - g)
-- Fair value per share
-- Current stock price comparison (over/under-valued)
+- Calculation: V = c × (1 + g) / (10% - g)
+- Fair value per share (stock price based on DCF valuation)
+- Current stock price comparison (over/under-valued percentage)
 
 ## Data Quality and Source Validation
 
@@ -163,7 +175,7 @@ See: [references/full-methodology.md](references/full-methodology.md)
 - All financial data in tables should use most recent year at top
 - Growth rates should be calculated year-over-year
 - Justify all assumptions (growth rate, discount rate)
-- Report should be written in Chinese
+- Report should be written in Chinese (markdown format)
 - For DCF valuation, use a single growth rate for the entire period with the formula V = c * (1 + g) / (10% - g). Calculate 6 scenarios: -5%, 0%, 5%, 7%, 9%, and estimated growth rate.
 - Report should be saved as `{ticker}_investment_report.md` in the current folder
 - If financial data is needed, use stockanalysis skill
