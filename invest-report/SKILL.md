@@ -158,6 +158,7 @@ Evaluate each data source based on:
 See: [references/full-methodology.md](references/full-methodology.md)
 ## Important Notes
 
+- **Time Reference**: All financial data and analysis should be based on data available as of yesterday. When stock prices or market data are needed, use the most recent data available from yesterday.
 - All financial data should be sourced from reference materials (markdown files) in current folder or using stockanalysis skill
 - All financial data in tables should use most recent year at top
 - Growth rates should be calculated year-over-year
