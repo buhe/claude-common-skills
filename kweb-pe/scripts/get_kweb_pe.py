@@ -108,16 +108,6 @@ def main():
     """
     # Sample holdings data (update with current data from Yahoo Finance)
     sample_holdings = [
-        {'name': '騰訊控股', 'symbol': '0700.HK', 'weight': 10.23, 'pe': 24.81},
-        {'name': '阿里巴巴－Ｗ', 'symbol': '9988.HK', 'weight': 8.77, 'pe': 22.74},
-        {'name': 'PDD Holdings Inc.', 'symbol': 'PDD', 'weight': 7.91, 'pe': 10.78},
-        {'name': '美團－Ｗ', 'symbol': '3690.HK', 'weight': 7.50, 'pe': 19.08},
-        {'name': '網易－Ｓ', 'symbol': '9999.HK', 'weight': 6.09, 'pe': 17.10},
-        {'name': '百度集團－ＳＷ', 'symbol': '9888.HK', 'weight': 4.36, 'pe': 13.37},
-        {'name': '攜程集團－Ｓ', 'symbol': '9961.HK', 'weight': 4.24, 'pe': 16.10},
-        {'name': '京東集團－ＳＷ', 'symbol': '9618.HK', 'weight': 3.97, 'pe': 9.56},
-        {'name': '貝殼－Ｗ', 'symbol': '2423.HK', 'weight': 3.89, 'pe': 40.90},
-        {'name': '京東健康', 'symbol': '6618.HK', 'weight': 3.87, 'pe': 40.73},
     ]
 
     separator = "=" * 60
