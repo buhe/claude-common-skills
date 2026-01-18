@@ -46,6 +46,7 @@ You MUST generate the following charts using Python matplotlib. All charts must 
 - Python code template:
 ```python
 import matplotlib.pyplot as plt
+# IMPORTANT: All chart labels, titles, and text MUST be in ENGLISH
 # DYNAMIC: years should be extracted from the actual data range available
 # Example: If data covers 2019-2024, use: years = ['2019', '2020', '2021', '2022', '2023', '2024']
 years = [extract years from actual data range]
@@ -93,9 +94,11 @@ plt.close()
 - Python code template:
 ```python
 import matplotlib.pyplot as plt
+# IMPORTANT: All chart labels, titles, and text MUST be in ENGLISH
 # DYNAMIC: Extract actual business segment names from company's annual report or reference materials
+# CRITICAL: ALWAYS use English names for segments. If source has Chinese or other language names, translate to English.
 # Examples: ['Product A', 'Product B', 'Services', 'Other'] or ['North America', 'Europe', 'Asia', 'Other']
-segments = [extract actual segment names from company data]
+segments = [extract actual segment names from company data and TRANSLATE to ENGLISH if necessary]
 percentages = [list of revenue percentages matching segments]
 
 # Color palette - adjust number of colors based on number of segments
@@ -148,6 +151,7 @@ plt.close()
 - Python code template:
 ```python
 import matplotlib.pyplot as plt
+# IMPORTANT: All chart labels, titles, and text MUST be in ENGLISH
 # DYNAMIC: years should be extracted from actual data range available
 # Example: If data covers 2015-2024, use: years = ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
 years = [extract years from actual data range]
@@ -192,6 +196,7 @@ plt.close()
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
+# IMPORTANT: All chart labels, titles, and text MUST be in ENGLISH
 # DYNAMIC: years should be extracted from actual data range available (last 5 years typically)
 # Example: If data covers 2020-2024, use: years = ['2020', '2021', '2022', '2023', '2024']
 years = [extract years from actual data range, typically last 5 years]
@@ -395,3 +400,4 @@ See: [references/full-methodology.md](references/full-methodology.md)
 - If financial data is needed, use stockanalysis skill
 - **Chart generation is mandatory** - Generate at least the 4 required charts if data is available, maximum 10 charts total
 - **Charts MUST be generated using Python matplotlib** with real data for accuracy, NOT using AI image generation tools
+- **CRITICAL: All chart labels, titles, and text MUST be in ENGLISH** - Even though the report is in Chinese, all charts must use English labels and titles
