@@ -70,3 +70,6 @@ Nothing needs to be provided.
 
 ![image-20260118114950094](https://raw.githubusercontent.com/buhe/pic/main/uPic/image-20260118114950094.png)
 
+## stockanalysis
+
+Visit stockanalysis.com to get financial data for up to 5 years.
