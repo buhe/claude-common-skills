@@ -1,163 +1,163 @@
 ---
 name: magic-note
-description: Intelligent note-taking and query system with tags (#tag), feelings ($feel), mentions (@who), and todo (&) support. Use when user wants to save/record notes with automatic field extraction, query notes by time/feeling/tag or review notes with feelings/mentions, or visualize relationships between notes using ASCII art. Commands include save/记录 xxx, 过去X天有什么note需要回顾, 过去X天有什么{feel}的note, 过去X个月的{tag} for relationship visualization.
+description: Intelligent note-taking and query system with tags (#tag), feelings ($feel), mentions (@who), and todo (&) support. Use when user wants to save/record notes with automatic field extraction, query notes by time/feeling/tag or review notes with feelings/mentions, or visualize relationships between notes using ASCII art. Commands include save/record xxx, review notes from past X days, notes with {feel} from past X days, {tag} notes from past X months for relationship visualization.
 ---
 
 # Magic Note
 
-智能笔记记录与查询系统，支持标签、情感、人员和待办事项，以及笔记间关系的可视化。
+Intelligent note-taking and query system supporting tags, feelings, mentions, todos, and relationship visualization between notes.
 
-## 数据库位置
+## Database Location
 
-- 配置文件路径: `/Users/guyanhua/.claude/note` （这是一个**文本文件**，里面存储 sqlite 数据库的路径）
-- 首次使用时：
-  1. 检查 `/Users/guyanhua/.claude/note` 是否存在
-  2. 如果存在，读取其中的 sqlite 数据库路径
-  3. 如果不存在，询问用户"请输入 SQLite 数据库的保存路径（如 `/Users/guyanhua/.claude/notes.sqlite`）"，然后将该路径写入配置文件
+- Config file path: `/Users/guyanhua/.claude/note` (This is a **text file** storing the sqlite database path)
+- First-time setup:
+  1. Check if `/Users/guyanhua/.claude/note` exists
+  2. If it exists, read the sqlite database path from it
+  3. If it doesn't exist, ask user "Please enter SQLite database save path (e.g., `/Users/guyanhua/.claude/notes.sqlite`)" and write that path to the config file
 
-## 表结构
+## Table Structure
 
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| content | TEXT | 笔记内容 |
-| tag | TEXT | 分类标签 (#tag) |
-| feel | TEXT | 当时感觉 ($feel) |
-| who | TEXT | 相关人/事 (@who) |
-| todo | BOOLEAN | 是否为待办事项 (&) |
-| time | TIMESTAMP | 记录时间 |
+| Field | Type | Description |
+|-------|------|-------------|
+| content | TEXT | Note content |
+| tag | TEXT | Category tag (#tag) |
+| feel | TEXT | Feeling at the time ($feel) |
+| who | TEXT | Related person/thing (@who) |
+| todo | BOOLEAN | Is this a todo item (&) |
+| time | TIMESTAMP | Record time |
 
-## 工作流程
+## Workflow
 
-### 1. 记录笔记
+### 1. Save Notes
 
-**触发词**: `save`, `记录`, `写下`, `添加笔记`
+**Trigger words**: `save`, `record`, `write`, `add note`
 
-**语法格式**:
+**Syntax**:
 ```
-save/记录 [内容] [#标签] [$感觉] [@人/事] [&待办标记]
+save/record [content] [#tag] [$feel] [@who] [&todo]
 ```
 
-**示例**:
-- `save 今天股票需要加仓，真恨呀` → 自动分析提取
-- `记录 #股票 今天大盘大跌 $痛苦 @顾艳华`
-- `save & 今天去买手纸`
+**Examples**:
+- `save Need to add more stock positions today` → Auto-analyze and extract
+- `record #stock Market crashed today $pain @guyanhua`
+- `save & Buy toilet paper today`
 
-**处理步骤**:
-1. 检查 `/Users/guyanhua/.claude/note` 是否存在
-   - 如果是文本文件，读取其中的 sqlite 路径
-   - 如果不存在或为空：
-     * 询问用户："请输入 SQLite 数据库的保存路径"（提供默认建议如 `/Users/guyanhua/.claude/notes.sqlite`）
-     * 将用户选择的路径写入 `/Users/guyanhua/.claude/note` 文件
-2. 调用 `scripts/save_note.py` 保存笔记
-3. 自动解析内容提取 `tag`, `feel`, `who`, `todo`
-4. **重要**: tag 只使用已有标签，不自由发挥；feel 和 who 可以自由发挥
-5. 返回添加的字段（无论是显式指定还是自动分析）
+**Processing steps**:
+1. Check if `/Users/guyanhua/.claude/note` exists
+   - If it's a text file, read the sqlite path from it
+   - If it doesn't exist or is empty:
+     * Ask user: "Please enter SQLite database save path" (provide default suggestion like `/Users/guyanhua/.claude/notes.sqlite`)
+     * Write user's chosen path to `/Users/guyanhua/.claude/note` file
+2. Call `scripts/save_note.py` to save the note
+3. Automatically parse content to extract `tag`, `feel`, `who`, `todo`
+4. **Important**: tag only uses existing tags; feel and who can be freely created
+5. Return extracted fields (whether explicitly specified or auto-analyzed)
 
-**Python 脚本**:
+**Python script**:
 ```python
-python3 scripts/save_note.py "笔记内容"
+python3 scripts/save_note.py "note content"
 ```
 
-### 2. 查询笔记
+### 2. Query Notes
 
-#### 2.1 回顾笔记（含 @ 或 $）
+#### 2.1 Review Notes (containing @ or $)
 
-**触发词**: `回顾`, `需要回顾`, `有什么note需要回顾`
+**Trigger words**: `review`, `need review`, `notes to review`
 
-**示例**: `过去1天有什么note需要回顾吗？`
+**Example**: `What notes need review from past 1 day?`
 
-**处理**: 查询含有 feel 或 who 的笔记
+**Processing**: Query notes containing feel or who
 
-**Python 脚本**:
+**Python script**:
 ```python
 python3 scripts/query_notes.py --review 1
 ```
 
-#### 2.2 按感觉查询
+#### 2.2 Query by Feeling
 
-**触发词**: `有什么{感觉}的note`, `过去X天{感觉}`
+**Trigger words**: `notes with {feel}`, `{feel} notes from past X days`
 
-**示例**: `过去1天有什么兴奋的note`
+**Example**: `Any excited notes from past 1 day`
 
-**Python 脚本**:
+**Python script**:
 ```python
-python3 scripts/query_notes.py --feel 兴奋 --days 1
+python3 scripts/query_notes.py --feel excited --days 1
 ```
 
-#### 2.3 按标签查询
+#### 2.3 Query by Tag
 
-**触发词**: `过去X个月的{标签}`, `{标签}相关note`
+**Trigger words**: `{tag} notes from past X months`, `{tag} related notes`
 
-**示例**: `过去一个月的股票笔记`
+**Example**: `Stock notes from past month`
 
-**Python 脚本**:
+**Python script**:
 ```python
-python3 scripts/query_notes.py --tag 股票 --days 30
+python3 scripts/query_notes.py --tag stock --days 30
 ```
 
-### 3. 关系可视化
+### 3. Relationship Visualization
 
-**触发词**: `过去X个月的{tag}` 暗示需要关系图
+**Trigger words**: `{tag} from past X months` implies need for relationship graph
 
-**处理步骤**:
-1. 获取指定时间范围内该 tag 的所有笔记
-2. 使用 AI 分析笔记间的潜在关系（共同关键词、语义相似性、时间关联等）
-3. 生成 ASCII 艺术图，笔记作为节点，有关联则连接
+**Processing steps**:
+1. Get all notes for that tag within the specified time range
+2. Use AI to analyze potential relationships between notes (common keywords, semantic similarity, time correlation, etc.)
+3. Generate ASCII art graph with notes as nodes, connected if related
 
-**ASCII 图示例**:
+**ASCII graph example**:
 ```
-         阅读
-         苹果的
-xx       财报     xx
-    │         │         │
-    |         │         |
-    研究苹果股票──────ios生态──────xx
-    │         │         │
-    │         |        │
-    │         xx      │
-    |          │        |
+         Read
+        Apple's
+xx       report     xx
+    |         |         |
+    |         |         |
+    Study Apple stock────ios ecosystem────xx
+    |         |         |
+    |         |        |
+    |         xx      |
+    |          |        |
    xx──xx──xx
 ```
 
-## 脚本说明
+## Script Documentation
 
 ### scripts/note_db.py
 
-数据库操作模块，提供以下函数:
-- `init_db()` - 初始化数据库
-- `add_note(content, tag, feel, who, todo)` - 添加笔记
-- `get_existing_tags()` - 获取已有标签列表
-- `get_notes_by_days(days)` - 获取N天内的笔记
-- `get_notes_with_feel_or_mention(days)` - 获取含feel/who的笔记
-- `get_notes_by_feel(feel, days)` - 按感觉查询
-- `get_notes_by_tag(tag, days)` - 按标签查询
+Database operation module, providing the following functions:
+- `init_db()` - Initialize database
+- `add_note(content, tag, feel, who, todo)` - Add note
+- `get_existing_tags()` - Get list of existing tags
+- `get_notes_by_days(days)` - Get notes from N days
+- `get_notes_with_feel_or_mention(days)` - Get notes containing feel/who
+- `get_notes_by_feel(feel, days)` - Query by feeling
+- `get_notes_by_tag(tag, days)` - Query by tag
 
 ### scripts/parse_note.py
 
-解析笔记内容，提取 tag/feel/who/todo:
+Parse note content to extract tag/feel/who/todo:
 ```python
 from parse_note import parse_note
-parsed = parse_note("今天股票需要加仓 $兴奋", existing_tags)
-# Returns: {"tag": "股票", "feel": "兴奋", "who": None, "todo": False, ...}
+parsed = parse_note("Need to add stock today $excited", existing_tags)
+# Returns: {"tag": "stock", "feel": "excited", "who": None, "todo": False, ...}
 ```
 
 ### scripts/save_note.py
 
-保存笔记的主入口:
+Main entry point for saving notes:
 ```bash
-python3 scripts/save_note.py "笔记内容"
+python3 scripts/save_note.py "note content"
 ```
 
 ### scripts/query_notes.py
 
-查询笔记的主入口:
+Main entry point for querying notes:
 ```bash
-# 回顾笔记
+# Review notes
 python3 scripts/query_notes.py --review 1
 
-# 按感觉查询
-python3 scripts/query_notes.py --feel 兴奋 --days 1
+# Query by feeling
+python3 scripts/query_notes.py --feel excited --days 1
 
-# 按标签查询
-python3 scripts/query_notes.py --tag 股票 --days 30
+# Query by tag
+python3 scripts/query_notes.py --tag stock --days 30
 ```

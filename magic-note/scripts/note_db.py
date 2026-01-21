@@ -35,9 +35,9 @@ def get_db_connection():
     """Get a connection to the notes database."""
     if DB_PATH is None:
         raise FileNotFoundError(
-            f"数据库未配置。\n"
-            f"配置文件 '{PREF_FILE}' 不存在或为空。\n"
-            f"请先创建该文件并写入 SQLite 数据库的路径，例如：\n"
+            f"Database not configured.\n"
+            f"Config file '{PREF_FILE}' does not exist or is empty.\n"
+            f"Please create this file and write the SQLite database path, e.g.:\n"
             f"  echo '/Users/guyanhua/.claude/notes.sqlite' > {PREF_FILE}"
         )
     conn = sqlite3.connect(DB_PATH)
