@@ -2,3 +2,4 @@
 magic-note/scripts/__pycache__/note_db.cpython-311.pyc
 magic-note/scripts/__pycache__/parse_note.cpython-311.pyc
 invest-cap/scripts/__pycache__/chart_generator.cpython-311.pyc
+invest-seg/scripts/__pycache__/generate_charts.cpython-311.pyc
