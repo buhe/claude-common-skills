@@ -17,6 +17,7 @@ description: Generate comprehensive balance sheet research reports in markdown f
 - 年报 PDF：提取资产负债表数据、附注和相关财务报表
 - 参考资料 markdown：审查现有财务数据和分析
 - 使用 `stockanalysis` skill 获取 5 年历史数据进行交叉验证
+- 数据准确很重要，参考资料中有历年三大表的数据，用于验证你从财报中获取的数据，以参考资料中数据为准。
 
 **数据验证要求：**
 - 评估数据来源的权威性、严谨性和相关性
