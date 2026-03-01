@@ -9,7 +9,7 @@ description: JavBus 演员作品搜索。当用户需要搜索演员作品（如
 
 ### 1. 搜索演员
 
-用户提供演员名字后，使用 `javbus-scraper` skill 访问搜索页面：
+用户提供演员名字后，使用 `javbus` skill 访问搜索页面：
 
 ```
 搜索 URL 格式：https://www.javbus.com/searchstar/[URL编码的演员名]

@@ -1,5 +1,5 @@
 ---
-name: javbus-scraper
+name: javbus
 description: "Access and navigate https://javbus.com using agent-browser, handling age verification checks with AI assistance if present, and extract video links. Use when user wants to: 1) Access javbus.com and pass age verification, 2) Extract video links from the site, 3) Navigate and interact with the website programmatically."
 ---
 
